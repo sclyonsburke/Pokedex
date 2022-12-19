@@ -1,0 +1,32 @@
+﻿@model Pokedex.Models.PokedexData
+@{
+    ViewBag.Title = "Pokedex";
+}
+
+<div class="dexList">
+    <div class="filter">
+        <div id="all" class="listTab selected">All</div>
+        <div id="favorites" class="listTab">Favorites</div>
+        <input id="search" type="text" />
+        <div>
+            <select id="typeList">
+                <option value="">Any Type</option>
+                @foreach (var type in Model.Types)
+                {
+                    <option value=@type>@type</option>
+                }
+            </select>
+            <button id="listButton" class="view"><i class="fa fa-bars"></i></button>
+            <button id="gridButton" class="view"><i class="fa fa-th"></i></button>
+        </div>
+    </div>
+    <div id="listView">
+        @{Html.RenderPartial("_DexGrid", Model);}
+    </div>
+    <div class="buttons">
+        <button id="prev" class="round">&#171;</button>
+        <button id="next" class="round">&#187;</button>
+    </div>
+</div>
+<script src="~/Scripts/jquery/jquery-3.6.1.min.js"></script>
+<script src="~/Scripts/Pokedex.js"></script>

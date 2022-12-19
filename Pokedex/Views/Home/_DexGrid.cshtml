@@ -1,0 +1,42 @@
+﻿@model Pokedex.Models.PokedexData
+<div id="gridDisplay" class="grid dexGrid">
+    @Html.HiddenFor(m => Model.Count)
+    @foreach (var pokemon in Model.Pokemon)
+    {
+        <div class="dexEntry listLink" id=@pokemon.id>
+            <div class="gridPictureFrame">
+                <img src="@Url.Content(pokemon.image)" class="gridPicture" />
+            </div>
+            <div class="gridLabel">
+                <div class="listName">
+                    <b>@pokemon.name</b>
+                    <br />
+                    <i>@pokemon.displayTypes</i>
+                </div>
+                <div class="favIcon">
+                    <img src="~/Content/Images/favorite-heart.png" class="@(@pokemon.isFavorite ? "favorite" : "unfavorite")" pid=@pokemon.id />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div id="listDisplay" class="listDisplay">
+    @foreach (var pokemon in Model.Pokemon)
+    {
+        <div class="listEntry listLink" id=@pokemon.id>
+            <div class="listPictureFrame">
+                <img src="@Url.Content(pokemon.image)" class="listPicture" />
+            </div>
+            <div class="listLabel">
+                <div class="listName">
+                    <b>@pokemon.name</b>
+                    <br />
+                    <i>@pokemon.displayTypes</i>
+                </div>
+                <div class="favIcon">
+                    <img src="~/Content/Images/favorite-heart.png" class="@(@pokemon.isFavorite ? "favorite" : "unfavorite")" pid=@pokemon.id />
+                </div>
+            </div>
+        </div>
+    }
+</div>

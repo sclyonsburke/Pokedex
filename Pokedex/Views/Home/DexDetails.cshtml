@@ -1,0 +1,98 @@
+﻿@model Pokedex.Models.Pokemon
+@{
+    ViewBag.Title = Model.name;
+}
+<div id="detailView" class="dexDetails">
+    <div class="detailPictureFrame">
+        <img src="@Url.Content(Model.image)" class="detailPicture" />
+    </div>
+    <div class="stats">
+        <div class="nameRow">
+            <div class="listName">
+                <h1>@Model.name</h1>
+                @Model.displayTypes
+            </div>
+            <div class="favCry">
+                <div class="cry">
+                    <i id="pokemonCry" class="fa fa-volume-up" audio="@Model.sound" style="font-size:48px"></i>
+                </div>
+                <div>
+                    <img src="~/Content/Images/favorite-heart.png" class="details-fav @(@Model.isFavorite ? "favorite" : "unfavorite")" pid=@Model.id />
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="statBars">
+            <b>HP: @Model.maxHP</b>
+            <br />
+            <div class="hpBar row"></div>
+            <br />
+            <b>CP: @Model.maxCP</b>
+            <br />
+            <div class="cpBar row"></div>
+        </div>
+        <div class="statRange">
+            <div class="weight">
+                <b>Weight:</b>
+                <br/>
+                @Model.weight.minimum - @Model.weight.maximum
+            </div>
+            <div class="height">
+                <b>Height:</b>
+                <br/>
+                @Model.height.minimum - @Model.height.maximum
+            </div>
+        </div>
+    </div>
+    <div class="evolutions">
+        <h2>Evolutions:</h2>
+        @if (Model.previousEvolutions.Count == 0 && Model.evolutions.Count == 0)
+        {
+            <div>None</div>
+        }
+        else
+        {
+            <div class="grid">
+                @foreach (var evolution in Model.previousEvolutions)
+                {
+                    <div class="evoFrame">
+                        <div class="dexEntry detailsLink" id=@evolution.id>
+                            <div class="gridPictureFrame">
+                                <img src="@Url.Content(evolution.image)" class="gridPicture" />
+                            </div>
+                            <div class="gridLabel">
+                                <div class="listName">
+                                    <b>@evolution.name</b>
+                                </div>
+                                <div class="favIcon">
+                                    <img src="~/Content/Images/favorite-heart.png" class="@(@evolution.isFavorite ? "favorite" : "unfavorite")" pid=@evolution.id />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @foreach (var evolution in Model.evolutions)
+                {
+                    <div class="evoFrame">
+                        <div class="dexEntry detailsLink" id=@evolution.id>
+                            <div class="gridPictureFrame">
+                                <img src="@Url.Content(evolution.image)" class="gridPicture" />
+                            </div>
+                            <div class="gridLabel">
+                                <div class="listName">
+                                    <b>@evolution.name</b>
+                                </div>
+                                <div class="favIcon">
+                                    <img src="~/Content/Images/favorite-heart.png" class="@(evolution.isFavorite ? "favorite" : "unfavorite")" pid=@evolution.id />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+<script src="~/Scripts/jquery/jquery-3.6.1.min.js"></script>
+<script src="~/Scripts/DexDetails.js"></script>
